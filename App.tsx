@@ -1,50 +1,47 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView,ScrollView, StatusBar,StyleSheet,Text,useColorScheme,View,} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// Importacion de componentes
+import SplashScreen from './components/SplashScreen';
+import LoginScreen from './components/LoginScreen';
+import OTPScreen from './components/OTPScreen';
+import UserInfoScreen from './components/UserInfoScreen';
+import WelcomeScreen from './components/WelcomeScreen';
+import MenuScreen from './components/MenuScreen';
 
+const stack = createStackNavigator();
+const drawer= createDrawerNavigator();
 
-function App(): React.JSX.Element {
-  
+const MainStack =() =>{
+  return ( 
+  <NavigationContainer>
+  <stack.Navigator initialRouteName='Splash'>
+    <stack.Screen name='Splash' component={SplashScreen} options={{headerShown:false}}/>
+    <stack.Screen name='Login' component={LoginScreen}/>
+    <stack.Screen name='OTP' component={OTPScreen}/>
+    <stack.Screen name='UserInfo' component={UserInfoScreen}/>
+    <stack.Screen name='Welcome' component={WelcomeScreen}/>
+    <stack.Screen name='Menu' component={MenuScreen}/>
+  </stack.Navigator>
+</NavigationContainer> 
+  );
+};
+const App=() =>{
   return (
-    <SafeAreaView>
-      
-    </SafeAreaView>
+  <NavigationContainer>
+    <drawer.Navigator initialRouteName="Main" drawerContent={()=> <MenuScreen/>}>
+      <drawer.Screen name="Main" component={MainStack}/>
+      </drawer.Navigator>
+  </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+
 });
 
 export default App;
